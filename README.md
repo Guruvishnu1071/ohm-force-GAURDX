@@ -9,6 +9,9 @@ Node 1 manages dual-factor physical authentication at access boundaries.
 Role: Physical entry verification, credential processing, access logging, and local lock actuation.
 Core Components: Arduino Uno, RFID RC522 module, 4x4 Matrix Keypad, I2C 16x2 LCD Display, SG90 Micro Servo Motor, and ESP-01 Wi-Fi Module.
 Operational Responsibility: Validates contactless RFID card UIDs and matches sequential 4-digit PIN entries. Communicates credential verification status to the user via the I2C LCD and controls the SG90 Servo motor to toggle door locking mechanisms. Transmits HTTP GET access logs to the local Python AI server via the ESP-01 module.
+
+Refer ![RFID Node 1](RFID_Node_1.ino)
+
 2.2 Node 2: Environment & Automation (Arduino Nano)
 Node 2 serves as the environmental sensor matrix and automated feedback controller.
 
@@ -114,6 +117,7 @@ JSON Serialization Over Serial: Node 2 structures its telemetry output into stan
   "vent_status": "CLOSED"
 
 }
+
 5. Workflow & System Logic
 5.1 Dual-Factor Authentication Workflow (Node 1)
 System resides in an IDLE state displaying operational status on the I2C LCD.
