@@ -12,7 +12,7 @@ Role: Physical entry verification, credential processing, access logging, and lo
 Core Components: Arduino Uno, RFID RC522 module, 4x4 Matrix Keypad, I2C 16x2 LCD Display, SG90 Micro Servo Motor, and ESP-01 Wi-Fi Module.
 Operational Responsibility: Validates contactless RFID card UIDs and matches sequential 4-digit PIN entries. Communicates credential verification status to the user via the I2C LCD and controls the SG90 Servo motor to toggle door locking mechanisms. Transmits HTTP GET access logs to the local Python AI server via the ESP-01 module.
 
-Refer ![RFID Node 1](RFID_Node_1.ino)
+Refer [RFID Node 1](RFID_Node_1.ino)
 
 2.2 Node 2: Environment & Automation (Arduino Nano)
 Node 2 serves as the environmental sensor matrix and automated feedback controller.
@@ -158,6 +158,9 @@ Natural Language Interface: Allow users to query system state and execute comple
 Context-Aware Threshold Adjustments: Replace hardcoded temperature/humidity/gas limits with machine learning models that account for seasonal drift, time-of-day variations, and user presence patterns.
 Behavioral Security Analytics: Analyze access logging timing patterns to detect unusual entry attempts, automatically tightening authentication parameters or alerting homeowners during abnormal hours.
 Predictive Maintenance: Monitor water pump run cycles and sensor noise levels to predict component degradation before hardware failure occurs.
+
+Block Diagram
+![Block diagram](block_diagram)
 
 Schematic diagram
 ![Schematic diagram](shematic_diagram.png)
