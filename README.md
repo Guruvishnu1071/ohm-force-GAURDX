@@ -1,9 +1,11 @@
 GAURDX: AI-Integrated Security System
 1. Abstract
 Conventional home security and automation systems rely heavily on rigid, hardcoded sensor thresholds and standalone physical access points. These legacy architectures lack contextual intelligence, predictive decision-making capabilities, and central operational visibility. This project introduces GAURDX, a distributed, agentic smart home and security architecture combining Edge microcontrollers with a centralized local AI processing server. GAURDX delegates local physical access and emergency safety loops to dedicated Edge microcontrollers while streaming real-time telemetry over Wi-Fi and Serial communication to a central Python Flask server. This distributed approach ensures low-latency localized response during emergency conditions while laying a robust foundation for context-aware, LLM-driven automation and predictive security analytics.
-2. System Architecture
+
+System Architecture
 The GAURDX architecture is organized into three specialized nodes, separating access control, environmental telemetry/automation, and central intelligence.
-2.1 Node 1: Smart Access & Edge (Arduino Uno)
+
+2.1 Node 1: Smart Access & Edge (Arduino Uno)  
 Node 1 manages dual-factor physical authentication at access boundaries.
 
 Role: Physical entry verification, credential processing, access logging, and local lock actuation.
@@ -18,12 +20,14 @@ Node 2 serves as the environmental sensor matrix and automated feedback controll
 Role: Continuous ambient monitoring, localized hazard mitigation, and telemetry transmission.
 Core Components: Arduino Nano, DHT11 Temperature & Humidity Sensor, MQ Gas Sensor, Flame Sensor, Soil Moisture Sensor, DS3231 Real-Time Clock (RTC), 1-Channel Relay Module (Water Pump Control), and L298N Dual H-Bridge Motor Driver (Window Blinds Control).
 Operational Responsibility: Executes a 2-second continuous polling loop to read ambient parameters. Implements deterministic, real-time safety fail-safes (e.g., immediate venting upon gas/flame detection, automated plant irrigation based on soil moisture). Formats all sensor metrics and timestamp data into JSON payloads for upstream transmission over Serial.
+
 2.3 Node 3: Local AI Brain (Python Server)
 Node 3 provides centralized data aggregation, API endpoints, logging, and smart decision processing.
 
 Role: RESTful API hosting, telemetry logging, operational database maintenance, and intelligence server.
 Software Stack: Python 3, Flask framework.
 Operational Responsibility: Hosts a lightweight local web server on port 5000. Features dedicated REST endpoints (/api/access-log and /api/telemetry) to process HTTP GET requests from Node 1 and JSON payloads from Node 2. Stores structured logs in local CSV files and serves as the integration interface for future machine learning and LLM models.
+
 3. Hardware Implementation & Interfacing
 3.1 Component Matrix
 Category
@@ -88,6 +92,7 @@ ESP-01 Wi-Fi Module: Operating strictly at 3.3V logic, the ESP-01 RX pin is sens
 RFID RC522 Module: The RC522 IC operates strictly at 3.3V VCC and logic levels. SPI data lines (SCK, MOSI, MISO, SDA) connected to the Arduino Uno require direct 3.3V power routing from the onboard regulator and logic attenuation where appropriate.
 Power Distribution Infrastructure:
 High-current inductive loads (L298N motor driver, water pump relay, and SG90 servo motor) are powered directly from an external regulated 12V/5V DC supply rather than drawing current from microcontroller pins, preventing unexpected thermal resets and brownout conditions.
+
 4. Software & Communication Protocols
 4.1 Bus Communication Protocols
 I2C Protocol (Inter-Integrated Circuit): Utilized by the 16x2 LCD (via PCF8574 adapter) and DS3231 RTC module on shared SDA/SCL lines. Reduces pin utilization on microcontrollers to two shared wire lines.
@@ -143,6 +148,7 @@ Trigger 1-Channel Relay to start Water Pump for scheduled irrigation pulse.
 Telemetry Dispatch:
 Construct JSON payload containing sensor metrics, timestamp from DS3231, and actuator state flags.
 Serialize payload over USB Serial interface to Node 3.
+
 6. Future AI Integration Strategy
 While current system operations utilize deterministic fail-safes and structured CSV logging, Node 3 is architected to transition into an autonomous agentic decision engine.
 6.1 Local Large Language Model (LLM) Integration via Ollama
