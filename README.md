@@ -67,7 +67,7 @@ Example Node 2 payload:
 }
 ```
 
-`temperature_c` or `humidity_pct` may be `null` if the DHT11 misses a reading. The API records its own UTC `received_at` value as well as the device timestamp. To connect the Nano, a host process must read newline-delimited JSON from its USB serial port and POST each line to `/api/telemetry`; the API does not open serial ports itself.
+`temperature_c` or `humidity_pct` may be `null` if the DHT11 misses a reading. The API records its own UTC `received_at` value as well as the device timestamp. To connect the Nano, leave the API running, set `GAURDX_SERIAL_PORT` to the Arduino port (for example `COM3`), and run `python serial_bridge.py` from `Node_3`. The bridge uses 9600 baud by default; `GAURDX_BAUD` and `GAURDX_API_URL` can override the defaults.
 
 ## Hardware and communication notes
 

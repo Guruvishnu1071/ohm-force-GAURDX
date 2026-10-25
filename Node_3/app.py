@@ -100,7 +100,9 @@ def access_log():
         uid = request.args.get("uid", "").strip().upper()
         status = request.args.get("status", "").strip().upper()
     else:
-        payload = request.get_json(silent=True) or {}
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict):
+            return jsonify({"error": "request body must be a JSON object"}), 400
         uid = str(payload.get("uid", "")).strip().upper()
         status = str(payload.get("status", "")).strip().upper()
     if not uid or len(uid) > 32 or not all(char in "0123456789ABCDEF" for char in uid):
